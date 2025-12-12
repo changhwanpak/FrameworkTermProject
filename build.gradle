@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '4.0.0'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'park.final_exam_monday'
+version = '0.0.1-SNAPSHOT'
+description = 'final_exam_monday'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Spring Web
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // Thymeleaf
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    // Spring Security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // JPA + H2
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'com.h2database:h2'   // H2 의존성 추가 (Driver 포함)
+
+    // Validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // 파일 업로드
+    implementation 'commons-io:commons-io:2.14.0'
+
+    // 테스트
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
+
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

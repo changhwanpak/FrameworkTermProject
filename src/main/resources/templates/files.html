@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>파일 목록</title>
+</head>
+<body>
+<h2>파일 목록</h2>
+
+<!-- 로그인 사용자 표시 -->
+
+<p th:if="${username}">
+    로그인: <b th:text="${username}"></b> |
+    <a th:href="@{/logout}">로그아웃</a>
+</p>
+
+<p><a th:href="@{/}">홈으로</a></p>
+
+<!-- ADMIN 업로드 링크 -->
+
+<p th:if="${isAdmin}">
+    <a th:href="@{/admin/upload}">파일 업로드 (ADMIN)</a>
+</p>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>원본명</th>
+        <th>설명</th>
+        <th>업로드한 사람</th>
+        <th>시간</th>
+        <th>동작</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="f : ${files}">
+        <td th:text="${f.id}"></td>
+        <td th:text="${f.origName}"></td>
+        <td th:text="${f.description}">-</td>
+        <td th:text="${f.uploadedBy}"></td>
+        <td th:text="${f.uploadTime}"></td>
+        <td>
+            <a th:href="@{/files/download/{id}(id=${f.id})}">다운로드</a>
+            <!-- ADMIN만 삭제 버튼 표시 -->
+            <span th:if="${isAdmin}">
+                    <form th:action="@{/admin/delete/{id}(id=${f.id})}" method="post" style="display:inline;">
+                        <button type="submit" onclick="return confirm('삭제할래?')">삭제</button>
+                    </form>
+                </span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
